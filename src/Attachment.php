@@ -309,7 +309,6 @@ class Attachment
         if ($this->originalFilename()) {
             return $this->storageDriver->path($styleName, $this);
         }
-
         return $this->defaultPath($styleName);
     }
 
@@ -517,6 +516,7 @@ class Attachment
             }
 
             $filePath = $this->path($style->name);
+
             $this->move($file, $filePath);
         }
 

@@ -24,7 +24,7 @@ class Interpolator
         foreach ($this->interpolations() as $key => $value)
         {
             if (strpos($string, $key) !== false) {
-                $string = preg_replace("/$key\b/", $this->$value($attachment, $styleName), $string);
+                $string = preg_replace("/$key/", $this->$value($attachment, $styleName), $string);
             }
         }
 
@@ -50,6 +50,7 @@ class Interpolator
             ':basename' => 'basename',
             ':extension' => 'extension',
             ':id' => 'id',
+            ':article_id' => 'articles_id',
             ':hash' => 'hash',
             ':secure_hash' => 'secureHash',
             ':id_partition' => 'idPartition',
@@ -173,6 +174,11 @@ class Interpolator
         return $this->ensurePrintable($attachment->getInstance()->getKey());
     }
 
+    protected function articles_id(Attachment $attachment, $styleName = '')
+    {
+        return $this->ensurePrintable($attachment->getInstance()->article_id);
+    }
+
     /**
      * Return a secure Bcrypt hash of the attachment's corresponding instance id.
      *
@@ -245,7 +251,7 @@ class Interpolator
     */
     protected function style(Attachment $attachment, $styleName = '')
     {
-        return $styleName ?: $attachment->default_style;
+        return $styleName ? trim($styleName) : $attachment->default_style;
     }
 
     /**
