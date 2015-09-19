@@ -52,7 +52,7 @@ class Filesystem implements StorageableInterface
     public function remove(array $filePaths)
     {
         foreach ($filePaths as $filePath) {
-            if(file_exists($filePath))
+            if(file_exists($filePath) && is_file($filePath))
                 unlink($filePath);
             //$directory = dirname($filePath);
             //$this->emptyDirectory($directory, false);
