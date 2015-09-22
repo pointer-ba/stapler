@@ -518,6 +518,9 @@ class Attachment
             $filePath = $this->path($style->name);
 
             $this->move($file, $filePath);
+
+            if ($style->name == '' && file_exists($filePath) && is_file($filePath) && substr(basename($filePath), 0, 8) === "original")
+                unlink($filePath);
         }
 
         $this->queuedForWrite = [];
